@@ -1,11 +1,8 @@
 const { ethers } = require('hardhat')
-const { fs } = require('fs')
-
-const toWei = (num) => ethers.utils.parseEther(num.toString())
+const fs = require('fs')
 
 async function main() {
-    const contract_name = 'Voting'
-    const Contract = await ethers.getContractFactory(contract_name)
+    const Contract = await ethers.getContractFactory('DappVotes')
     const contract = await Contract.deploy()
 
     await contract.deployed()
@@ -24,3 +21,5 @@ main().catch((error) => {
     console.error(error)
     process.exitCode = 1
 })
+
+// 0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0
