@@ -1,12 +1,10 @@
 // SPDX-License-Identifier: MIT 
 pragma solidity >=0.7.0 < 0.9.0;
 
-import '@openzeppelin/contracts/access/Counters.sol';
-
 contract Voting {
-    using Counters for Counters.Counter;
-    Counters.Counter private totalPolls;
-    Counters.Counter private totalContestants;
+    
+    uint private totalPolls;
+    uint private totalContestants;
 
     struct PollStruct {
         uint id;
@@ -54,10 +52,10 @@ contract Voting {
         require(startsAt > 0, "Start date must be greater than 0");
         require(endsAt > startsAt, "End date must be greater than start Date");
 
-        totalPolls.increment();
+        totalPolls++;
 
         PollStruct memory poll;
-        poll.id = totalPolls.current();
+        poll.id = totalPolls;
         poll.title = title;
         poll.description = description;
         poll.image = image;
@@ -98,7 +96,7 @@ contract Voting {
     function deletePoll(uint id) public {
         require(pollExist[id], "Poll not found");
         require(polls[id].director == msg.sender, "Unauthorized entity");
-        requier(polls[id].votes < 1, "Poll has votes already");
+        require(polls[id].votes < 1, "Poll has votes already");
         polls[id].deleted = true;
     }
 
@@ -108,14 +106,14 @@ contract Voting {
 
     function getPolls() public view returns (PollStruct[] memory Polls) {
         uint available;
-        for (uint i = 1; i <= totalPolls.current(); i++) {
+        for (uint i = 1; i <= totalPolls; i++) {
             if(!polls[i].deleted) available++;
         }
 
         Polls = new PollStruct[](available);
         uint index = 0;
 
-        for (uint i = 1; i <= totalPolls.current(); i++) {
+        for (uint i = 1; i <= totalPolls; i++) {
             if(!polls[i].deleted) {
                 Polls[index++] = polls[i];
             }
@@ -127,15 +125,15 @@ contract Voting {
         require(bytes(name).length > 0, "name cannot be empty");
         require(bytes(image).length > 0, "image cannot be empty");
         require(polls[id].votes < 1, "Poll has votes already");
-        require(!contestants[id][msg.sender], "Already contested");
+        require(!contested[id][msg.sender], "Already contested");
 
-        totalContestants.increment();
+        totalContestants++;
 
         ContestantStruct memory contestant;
         contestant.name = name;
         contestant.image = image;
         contestant.voter = msg.sender;
-        contestant.id = totalContestants.current();
+        contestant.id = totalContestants;
 
         contestants[id][contestant.id] = contestant;
         contested[id][msg.sender] = true;
@@ -149,14 +147,14 @@ contract Voting {
 
     function getContestants(uint id) public view returns (ContestantStruct[] memory Contestants) {
         uint available;
-        for (uint i = 1; i <= totalContestants.current(); i++) {
+        for (uint i = 1; i <= totalContestants; i++) {
             if(contestants[id][i].id == i) available++;
         }
 
         Contestants = new ContestantStruct[](available);
         uint index;
 
-        for (uint i = 1; i <= totalContestants.current(); i++) {
+        for (uint i = 1; i <= totalContestants; i++) {
             if(contestants[id][i].id == i) {
                 Contestants[index++] = contestants[id][i];
             }
@@ -165,7 +163,7 @@ contract Voting {
 
     function vote(uint id, uint cid) public {
         require(pollExist[id], 'Poll not found');
-        require(!voted[id].msg.sender, 'Already voted');
+        require(!voted[id][msg.sender], 'Already voted');
         require(!polls[id].deleted, 'Poll not available');
         require(polls[id].contestants > 1, "Not enough contestants");
         require(

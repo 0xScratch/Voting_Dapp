@@ -26,6 +26,8 @@
     ]
   },
   "dependencies": {
+    "@cometchat-pro/chat": "3.0.13",
+    "@headlessui/react": "1.7.17",
     "@openzeppelin/test-helpers": "0.5.16",
     "@reduxjs/toolkit": "1.9.3",
     "ethers": "^5.4.7",
@@ -35,14 +37,15 @@
     "react-icons": "4.8.0",
     "react-identicons": "1.2.5",
     "react-redux": "8.0.5",
-    "react-toastify": "9.1.2"
+    "react-toastify": "9.1.2",
+    "sharp": "0.32.5"
   },
   "devDependencies": {
     "@emotion/react": "11.10.5",
     "@emotion/styled": "11.10.5",
     "@ethersproject/abi": "^5.4.7",
     "@ethersproject/providers": "^5.4.7",
-    "@faker-js/faker": "8.0.2",
+    "@faker-js/faker": "7.6.0",
     "@nomicfoundation/hardhat-chai-matchers": "^1.0.0",
     "@nomicfoundation/hardhat-network-helpers": "^1.0.0",
     "@nomicfoundation/hardhat-toolbox": "^2.0.0",
