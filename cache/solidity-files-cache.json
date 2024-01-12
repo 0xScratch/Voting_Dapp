@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "D:\\Stuff\\chain\\Web3.0\\DAPPS\\voting_dapp\\contracts\\Voting.sol": {
-      "lastModificationDate": 1705071203029,
-      "contentHash": "cd0649b4c79f7bea6065f6b8d3886514",
+      "lastModificationDate": 1705075580568,
+      "contentHash": "8cf06c9fc7c7a093c9eddef6f385c519",
       "sourceName": "contracts/Voting.sol",
       "solcConfig": {
         "version": "0.8.17",
@@ -30,10 +30,10 @@
       },
       "imports": [],
       "versionPragmas": [
-        ">=0.7.0 < 0.9.0"
+        ">=0.7.0 <0.9.0"
       ],
       "artifacts": [
-        "Voting"
+        "DappVotes"
       ]
     }
   }
